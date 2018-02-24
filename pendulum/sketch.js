@@ -22,7 +22,6 @@ function Tether(start,end,lineLength){
     let b = this.end.y - this.start.y;
     let c = Math.sqrt(a**2 + b**2);
     if (c >= lineLength) {
-
     }
   }
 }
