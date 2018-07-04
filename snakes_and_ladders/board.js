@@ -1,6 +1,6 @@
 class Board {
     constructor(sizeX,sizeY,cellWidth,cellHeight){
-        this.cells = makeBoard(sizeX,sizeY);
+        this.cells = this.makeBoard(sizeX,sizeY);
         this.playerPos = 0;
         this.cellWidth = cellWidth;
         this.cellHeight = cellHeight;
@@ -32,7 +32,7 @@ class Board {
     getMove(){
         let move = Math.ceiling(Math.random()*6);
         console.log(move);
-        if (checkMove(this.playerPos,move)){
+        if (this.checkMove(this.playerPos,move)){
             this.playerPos += move;
             console.log("Moving player to $(this.Playerpos+move)");
         } else {
@@ -41,12 +41,16 @@ class Board {
     }
 
     update(){
+        this.draw();
         if (this.playerPos < this.cells.length-1){
-            getMove();
+            this.getMove();
         }
     }
 
     draw(){
+        noStroke();
+
+        // draw board
         for (let i = 0; i < this.cells.length; i++) {
             let tile = this.cells[i];
             if (i % 2 == 0){
@@ -54,8 +58,13 @@ class Board {
             } else {
                 fill(200);
             }
-            rect(x,y,this.cellWidth,this.cellHeight);
+            rect(tile.x*this.cellWidth,tile.y*this.cellHeight,this.cellWidth,this.cellHeight);
         }
+
+        // then draw player
+        let playerX = this.cells[playerPos].x;
+        let playerY = this.cells[playerPos].y;
+        ellipse()
     }
 
 
