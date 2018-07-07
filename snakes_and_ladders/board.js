@@ -11,11 +11,19 @@ class Board {
         for (let y = sizeY - 1; y > -1; y--){
             if (y % 2 == 0){
                 for (let x = sizeX-1; x > -1; x--){
-                    cells.push(new Cell(x,y));
+                    var sol = 0;
+                    if (Math.random() < 0.05){
+                        sol = -5;
+                    }
+                    cells.push(new Cell(x,y,sol));
                 }
             } else {
                 for (let x = 0; x < sizeX; x++){
-                    cells.push(new Cell(x,y));
+                    var sol = 0;
+                    if (Math.random() < 0.05){
+                        sol = -5;
+                    }
+                    cells.push(new Cell(x,y,sol));
                 }
             }
         }
@@ -42,8 +50,14 @@ class Board {
 
     update(){
         this.draw();
+        if (!this.cells[this.playerPos].snakeOrLadder == 0){
+            this.playerPos = this.playerPos + this.cells[this.playerPos].snakeOrLadder;
+            console.log("Snake!!!");
+            return
+        }
         if (this.playerPos < this.cells.length-1){
             this.getMove();
+            return
         }
     }
 
@@ -58,7 +72,17 @@ class Board {
             } else {
                 fill(200);
             }
+            noStroke();
             rect(tile.x*this.cellWidth,tile.y*this.cellHeight,this.cellWidth,this.cellHeight);
+            if (!tile.snakeOrLadder == 0){
+                let second = this.cells[this.cells[i].snakeOrLadder + i]
+                stroke(255,0,0);
+                let Ax = tile.x*this.cellWidth+this.cellWidth*0.5;
+                let Ay = tile.y*this.cellHeight+this.cellHeight*0.5;
+                let Bx = second.x*this.cellWidth+this.cellWidth*0.5;
+                let By = second.y*this.cellHeight+this.cellHeight*0.5;
+                line(Ax,Ay,Bx,By);
+            }
         }
 
         // then draw player
@@ -70,11 +94,10 @@ class Board {
 }
 
 class Cell {
-    constructor(x,y){
+    constructor(x,y,sol){
         this.x = x;
         this.y = y;
         // this.color = 100;
-        this.isSnake = false;
-        this.isLadder = false;
+        this.snakeOrLadder = sol;
     }
 }
