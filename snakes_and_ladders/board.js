@@ -30,7 +30,7 @@ class Board {
     }
 
     getMove(){
-        let move = Math.round(Math.random()*6);
+        let move = Math.ceil(Math.random()*6);
         console.log(move);
         if (this.checkMove(this.playerPos,move)){
             this.playerPos += move;
