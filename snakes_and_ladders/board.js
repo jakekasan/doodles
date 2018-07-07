@@ -64,10 +64,8 @@ class Board {
         // then draw player
         let playerX = this.cells[playerPos].x;
         let playerY = this.cells[playerPos].y;
-        ellipse()
+        ellipse(playerX,playerY,this.cellWidth);
     }
-
-
 }
 
 class Cell {
