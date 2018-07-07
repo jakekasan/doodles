@@ -23,18 +23,18 @@ class Board {
     }
 
     checkMove(position,move){
-        if ((this.cells.length-position) < move){
+        if ((this.cells.length-position-1) < move){
             return false;
         }
         return true;
     }
 
     getMove(){
-        let move = Math.ceiling(Math.random()*6);
+        let move = Math.round(Math.random()*6);
         console.log(move);
         if (this.checkMove(this.playerPos,move)){
             this.playerPos += move;
-            console.log("Moving player to $(this.Playerpos+move)");
+            console.log(`Moving player to ${this.playerPos}`);
         } else {
             console.log("Invalid move...")
         }
@@ -62,9 +62,10 @@ class Board {
         }
 
         // then draw player
-        let playerX = this.cells[playerPos].x;
-        let playerY = this.cells[playerPos].y;
-        ellipse(playerX,playerY,this.cellWidth);
+        let playerX = this.cells[this.playerPos].x*(this.cellWidth);
+        let playerY = this.cells[this.playerPos].y*(this.cellHeight);
+        fill(255,0,0);
+        ellipse(playerX+(this.cellWidth*0.5),playerY+(this.cellHeight*0.5),this.cellWidth/2);
     }
 }
 

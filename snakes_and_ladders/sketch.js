@@ -5,6 +5,7 @@ var board = new Board(10,10,40,40);
 
 function setup(){
     createCanvas(400,400);
+    frameRate(1);
 }
 
 function draw(){
